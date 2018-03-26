@@ -1,3 +1,8 @@
+"""функция process_a_new_connection, которая отдает клиенту
+имя файла и ждет от него результат.
+когда все 10 клиентов посчитают результат
+сервер его просуммирует и выведет на экран"""
+
 from settings import *
 from asyncio import get_event_loop, Queue, start_server
 
