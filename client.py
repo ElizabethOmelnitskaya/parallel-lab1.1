@@ -1,15 +1,20 @@
+""" client.py и server.py содержат параллельную реализацию """
+
 from settings import *
 from asyncio import open_connection, get_event_loop
 from collections import defaultdict
+
 
 async def mapper(loop):
     reader, writer = await open_connection(ADDR, PORT, loop=loop)
     data = await reader.readuntil()
     result = defaultdict(int)
+
     with open(data.decode().rstrip(), "r") as f:
         for line in f:
             for word in line.rstrip().split():
                 result[word.lower()] += 1
+
     writer.write(f'{dumps(result[WORD])}\n'.encode())
     await writer.drain()
     writer.close()
